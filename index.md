@@ -12,5 +12,6 @@ University of Turin
 
 My research focuses on the history and philosophy of science.
 
-[Publications](publications/)
-[cv](https://marcogiovanelli.github.io/CurriculumVitae/cv_pub.pdf)
+- [Publications](publications/)
+- [cv](https://marcogiovanelli.github.io/CurriculumVitae/cv_pub.pdf)
+  
