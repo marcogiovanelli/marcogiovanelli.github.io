@@ -5,6 +5,56 @@ title: Publications
 
 # Publications
 
+<style>
+
+.publications-list {
+
+  list-style: none;
+
+  padding-left: 0;
+
+  margin-top: 1.5rem;
+
+}
+
+.publication-item {
+
+  margin-bottom: 1.25rem;
+
+  padding-bottom: 1.25rem;
+
+  border-bottom: 1px solid #e5e5e5;
+
+}
+
+.publication-year {
+
+  font-weight: 600;
+
+}
+
+.publication-title {
+
+  font-weight: 600;
+
+}
+
+.publication-meta {
+
+  margin-top: 0.25rem;
+
+  font-size: 0.95em;
+
+}
+
+.publication-link {
+
+  margin-left: 0.25rem;
+
+}
+
+</style>
+
 <div id="orcid-publications">Loading publications...</div>
 
 <script>
