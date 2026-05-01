@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORCID Publications</title>
+</head>
+<body>
+    
+    <div id="orcid-publications">Loading publications...</div>
+
+    <script>
+        async function fetchORCIDPublications() {
+            const orcidId = "0000-0003-1342-6476";
+            const apiUrl = `https://pub.orcid.org/v3.0/${orcidId}/works`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    headers: { "Accept": "application/json" }
+                });
+                const data = await response.json();
+
+                const publications = data.group;
+                let html = "<ul>";
+
+                publications.forEach((pub) => {
+    const workType = pub['work-summary'][0]['type'];
+    const title = pub['work-summary'][0].title.title.value;
+   // Attempt to access the publication date in a safe way
+const publicationDate = pub['work-summary']?.[0]?.['publication-date'];
+
+// Extract year, defaulting to an empty string if publication date or year is missing
+const year = publicationDate?.year?.value || "pippo";
+    const url = pub['work-summary'][0]['url'] ? pub['work-summary'][0]['url']['value'] : "#";
+    const doi = pub['work-summary'][0].externalIdentifiers?.externalIdentifier
+    .find(id => id.externalIdentifierType === "DOI")?.externalIdentifierValue || "N/A";
+    
+    // Extract journal title if available
+                    const journalName = pub['work-summary'][0]['journal-title']?.value || "";
+
+
+    let contributors = "";
+if ((workType === "book" || workType === "edited-book") && pub['work-summary'][0].contributors) {
+    const editors = pub['work-summary'][0].contributors.contributor
+        .filter(contributor => contributor.contributorAttributes?.contributorRole === "editor")
+        .map(editor => editor.creditName.value);
+    contributors = editors.length > 0 ? `Editor(s): ${editors.join(", ")}` : "";
+}
+
+
+     html += `<li>${year} - ${title} - <i>${journalName}</i> - (${workType}) - <a href="${url}" target="_blank"><img src="https://marco-giovanelli.com/wp-content/uploads/2024/11/linkicon.png" alt="DOI Icon" style="width:16px; height:16px;"></a> </li>`;
+});
+
+                html += "</ul>";
+                document.getElementById("orcid-publications").innerHTML = html;
+
+            } catch (error) {
+                console.error("Error fetching ORCID publications:", error);
+                document.getElementById("orcid-publications").innerText = "Unable to load publications.";
+            }
+        }
+
+        fetchORCIDPublications();
+    </script>
+</body>
+</html>
